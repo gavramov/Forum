@@ -1,16 +1,13 @@
 export default class KinveyService {
     getKinveyAppKey() {
-        // return 'kid_ryea9AW7Q'
-        return 'kid_H1ZjN8iMx'
+        return 'kid_ryea9AW7Q'
     }
 
     getKinveySecret() {
-        // return '6567e091a2e54114be97c879a0fa4c7d'
-        return '44c440ddfad04876965ea158550e46c0'
+        return '6567e091a2e54114be97c879a0fa4c7d'
     }
 
-
-    getUserModuleUrl() {
+    getModuleUrl() {
         return `https://baas.kinvey.com/user/${this.getKinveyAppKey()}`
     }
 
