@@ -97,7 +97,11 @@ export default class NavigationBar extends Component {
         }
         return (
             <Navbar color="dark" dark expand="md">
-                <Link to="/" className="nav-link">Home</Link>
+                <Nav navbar className="ml-auto">
+                    <NavItem className="nav-item" to="/">
+                        <NavLink className="nav-link" to="/">Home</NavLink>
+                    </NavItem>
+                </Nav>
                 <NavbarToggler onClick={this.toggleNavBar} className="mr-2"/>
                 <Collapse isOpen={!this.state.collapsed} navbar>
                     {navbar}
