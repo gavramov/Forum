@@ -7,9 +7,11 @@ import {withRouter} from 'react-router-dom'
 import Register from './components/register/RegisterPage'
 import Login from './components/login/LoginPage'
 import CreatePostPage from './components/posts/create-post/CreatePostPage'
-import EditPostPage from "./components/Posts/edit-post/EditPostPage";
+import EditPostPage from "./components/posts/edit-post/EditPostPage"
 import AllPostsPage from './components/posts/AllPostsPage'
-import NotFoundPage from './components/NotFound/NotFoundPage'
+import CreateCommentPage from './components/comments/create-comment/CreateCommentPage'
+import EditCommentPage from './components/comments/edit-comment/EditCommentPage'
+import NotFoundPage from './components/notFound/NotFoundPage'
 
 let session = new userModel()
 
@@ -53,6 +55,8 @@ class App extends Component {
                         <Route path="/posts/create" component={CreatePostPage}/>
                         <Route exact path="/posts" component={AllPostsPage}/>
                         <Route exact path="/posts/edit/:postId" component={EditPostPage} />
+                        <Route path="/comments/:postId" component={CreateCommentPage}/>
+                        <Route path="/comments/edit/:commentId" component={EditCommentPage}/>
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>

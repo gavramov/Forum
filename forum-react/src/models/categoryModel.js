@@ -24,7 +24,7 @@ export default class Category {
 
         function publish(categories) {
             let found = false
-            for (let i = 0 i < categories.length i++) {
+            for (let i = 0; i < categories.length; i++) {
                 if(categories[i].name ===  name){
                     found = true
                     callback('duplicate')

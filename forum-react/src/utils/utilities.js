@@ -25,7 +25,7 @@ export default class Utilities {
 
         result = array[0]
 
-        for (let i = 1 i < array.length i++) {
+        for (let i = 1; i < array.length; i++) {
             if (result.length + 4 + array[i].length > size) {
                 return result + '...'
             }
