@@ -11,7 +11,6 @@ let auth =
 export default class Category {
 
     getAllCategories(callback) {
-        debugger
         if(callback === undefined)
             return requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())
         requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())

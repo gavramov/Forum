@@ -1,31 +1,29 @@
 import React, {Component} from 'react'
 import RegisterForm from './RegisterForm'
 import User from '../../models/userModel'
-// import Modal from 'react-bootstrap/lib/Modal'
-// import Button from 'react-bootstrap/lib/Button'
 import {
     Button,
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter
-} from 'reactstrap';
+} from 'reactstrap'
 
 import $ from 'jquery'
 import {withRouter} from 'react-router-dom'
 
-let user = new User();
+let user = new User()
 
 class RegisterPage extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             username: '',
             password: '',
             repeat: '',
             submitDisabled: false,
             showModal: true
-        };
+        }
         this.bindEventHandlers()
     }
 
@@ -38,13 +36,12 @@ class RegisterPage extends Component {
         this.onChangeHandler = this.onChangeHandler.bind(this)
         this.onSubmitHandler = this.onSubmitHandler.bind(this)
         this.onSubmitResponse = this.onSubmitResponse.bind(this)
-        this.close = this.close.bind(this);
+        this.close = this.close.bind(this)
     }
 
     close() {
-        this.setState({showModal: false});
-        if (this.state.username === '')
-            this.props.history.push('/')
+        this.setState({showModal: false})
+        this.props.history.push('/')
     }
 
     onChangeHandler(event) {
@@ -87,7 +84,7 @@ class RegisterPage extends Component {
             // Navigate away from register page
             $('#error').hide()
             this.close()
-            this.context.router.push('/posts')
+            this.props.history.push('/posts')
         } else {
             //console.clear()
             // Something went wrong, let the user try again
