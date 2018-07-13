@@ -24,18 +24,18 @@ export default class Views {
 
     getAllViews(callback) {
         if (callback === undefined)
-            return requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders());
+            return requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders())
 
         requester.get(kinvey.getCollectionModuleUrl('rating'), auth.getHeaders())
-            .then(views => callback(views));
+            .then(views => callback(views))
     }
 
     getViewByPostId(postId, callback) {
         if (callback === undefined)
-            return requester.get(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${postId}"}`, auth.getHeaders());
+            return requester.get(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${postId}"}`, auth.getHeaders())
 
         requester.get(kinvey.getCollectionModuleUrl('rating') + `?query={"postId":"${postId}"}`, auth.getHeaders())
-            .then(view => callback(view));
+            .then(view => callback(view))
     }
 
     updateViews(id, data){
@@ -46,7 +46,7 @@ export default class Views {
         let data = {
             postId: view.postId,
             rating: ++view.rating
-        };
-        requester.put(kinvey.getCollectionModuleUrl('rating') + `/${view._id}`, auth.getHeaders(), data);
+        }
+        requester.put(kinvey.getCollectionModuleUrl('rating') + `/${view._id}`, auth.getHeaders(), data)
     }
 }

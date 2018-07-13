@@ -3,14 +3,17 @@ import RegisterForm from './RegisterForm'
 import User from '../../models/userModel'
 // import Modal from 'react-bootstrap/lib/Modal'
 // import Button from 'react-bootstrap/lib/Button'
-import {Button,
+import {
+    Button,
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter} from 'reactstrap';
+    ModalFooter
+} from 'reactstrap';
 
 import $ from 'jquery'
 import {withRouter} from 'react-router-dom'
+
 let user = new User();
 
 class RegisterPage extends Component {
@@ -39,7 +42,7 @@ class RegisterPage extends Component {
     }
 
     close() {
-        this.setState({ showModal: false });
+        this.setState({showModal: false});
         if (this.state.username === '')
             this.props.history.push('/')
     }
@@ -47,13 +50,13 @@ class RegisterPage extends Component {
     onChangeHandler(event) {
         switch (event.target.name) {
             case 'username':
-                this.setState({ username: event.target.value })
+                this.setState({username: event.target.value})
                 break
             case 'password':
-                this.setState({ password: event.target.value })
+                this.setState({password: event.target.value})
                 break
             case 'repeat':
-                this.setState({ repeat: event.target.value })
+                this.setState({repeat: event.target.value})
                 break
             default:
                 break
@@ -70,10 +73,10 @@ class RegisterPage extends Component {
             return
         }
         $('#error').hide()
-        this.setState({ submitDisabled: true })
+        this.setState({submitDisabled: true})
         try {
             user.register(this.state.username, this.state.password, this.onSubmitResponse)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
             console.log('cached')
         }
@@ -89,7 +92,7 @@ class RegisterPage extends Component {
             //console.clear()
             // Something went wrong, let the user try again
             $('#error').show().text("User with that name already exists!")
-            this.setState({ submitDisabled: false })
+            this.setState({submitDisabled: false})
         }
     }
 

@@ -8,14 +8,13 @@ function _makeRequest(method, url, headers, data) {
             headers: headers,
             data: JSON.stringify(data)
         })
-        // window.fetch(url, {
-        //     method: method,
-        //     headers: headers,
-        //     body: JSON.stringify(data)
-        // }).then((res) => {
-        //     return res.json();
-        // })
-    )
+    );
+    // const res = await fetch(url, {
+    //     method: method,
+    //     headers: headers,
+    //     body: JSON.stringify(data)
+    // });
+    // return res.json()
 }
 
 export default class Requester {

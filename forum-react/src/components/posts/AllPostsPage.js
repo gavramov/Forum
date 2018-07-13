@@ -1,19 +1,20 @@
 import React, {Component} from 'react'
 import Post from '../../models/postModel'
-import View from '../../models/viewsModel';
-import Category from '../../models/categoryModel';
-import Pager from 'react-pager';
+import View from '../../models/viewsModel'
+import Category from '../../models/categoryModel'
+import Pager from 'react-pager'
 // import { browserHistory } from 'react-router'
 import {withRouter} from 'react-router-dom'
 import Utilities from '../../utils/utilities'
-let postModule = new Post();
-let viewModule = new View();
-let categoryModule = new Category();
-let utilities = new Utilities();
+
+let postModule = new Post()
+let viewModule = new View()
+let categoryModule = new Category()
+let utilities = new Utilities()
 
 class AllPostsPage extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             posts: [],
             pagePosts: [],
@@ -24,8 +25,8 @@ class AllPostsPage extends Component {
                     : 'All'
                 : 'All',
             categories: [],
-            total:       0,
-            current:     0,
+            total: 0,
+            current: 0,
             visiblePage: 10
         }
         this.bindEventHandlers()
@@ -36,40 +37,40 @@ class AllPostsPage extends Component {
             category: event.target.value,
             current: 0
         })
-        if(event.target.value !== 'All') {
+        if (event.target.value !== 'All') {
             this.setState({
                 pagePosts: this.state.posts.filter(a => a.category === event.target.value),
                 total: Math.ceil(this.state.posts.filter(a => a.category === event.target.value).length / 10),
             })
         } else {
             this.setState({
-                pagePosts: this.state.posts.slice(0 , 10),
+                pagePosts: this.state.posts.slice(0, 10),
                 total: Math.ceil(this.state.posts.length / 10),
             })
         }
     }
 
     handlePageChanged(newPage) {
-        if(this.state.category === 'All'){
+        if (this.state.category === 'All') {
             this.setState({
                 current: newPage,
                 total: Math.ceil(this.state.posts.length / 10),
-                pagePosts: this.state.posts.slice(newPage * this.state.visiblePage , (newPage * this.state.visiblePage)+10)
+                pagePosts: this.state.posts.slice(newPage * this.state.visiblePage, (newPage * this.state.visiblePage) + 10)
             })
         } else {
             this.setState({
                 current: newPage,
                 total: Math.ceil(this.state.posts.filter(a => a.category === this.state.category).length / 10),
                 pagePosts: this.state.posts.filter(a => a.category === this.state.category)
-                    .slice(newPage * this.state.visiblePage , (newPage * this.state.visiblePage)+10)
+                    .slice(newPage * this.state.visiblePage, (newPage * this.state.visiblePage) + 10)
             })
         }
     }
 
     bindEventHandlers() {
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.onLoadSuccess = this.onLoadSuccess.bind(this);
-        this.handlePageChanged = this.handlePageChanged.bind(this);
+        this.onChangeHandler = this.onChangeHandler.bind(this)
+        this.onLoadSuccess = this.onLoadSuccess.bind(this)
+        this.handlePageChanged = this.handlePageChanged.bind(this)
     }
 
     componentDidMount() {
@@ -77,24 +78,24 @@ class AllPostsPage extends Component {
             postModule.getAllPosts(),
             categoryModule.getAllCategories(),
             viewModule.getAllViews()
-        ];
+        ]
         Promise.all(requests).then(this.onLoadSuccess).then(() => {
-            this.onChangeHandler({ target: { value: this.state.category } });
+            this.onChangeHandler({target: {value: this.state.category}})
         })
     }
 
     onLoadSuccess([posts, categories, views]) {
-        views = views.sort((a, b) => a.postId > b.postId);
+        views = views.sort((a, b) => a.postId > b.postId)
         for (let post of posts)
-            post.rating = views.filter(view => view.postId === post._id)[0].rating;
-        posts.sort((a,b) => {
+            post.rating = views.filter(view => view.postId === post._id)[0].rating
+        posts.sort((a, b) => {
             if (b._kmd.lmt.localeCompare(a._kmd.lmt) > 0)
-                return 1;
+                return 1
             else if (b._kmd.lmt.localeCompare(a._kmd.lmt) < 0)
-                return -1;
+                return -1
             else
-                return 0;
-        });
+                return 0
+        })
 
         this.setState({
             posts: posts,
@@ -105,16 +106,16 @@ class AllPostsPage extends Component {
     }
 
     onActionHandler(post) {
-        postModule.deletePost(post._id,this.onDeleteResponse)
+        postModule.deletePost(post._id, this.onDeleteResponse)
     }
 
     render() {
-        if(this.state.posts.length === 0) {
+        if (this.state.posts.length === 0) {
             return (<h1>Loading</h1>)
         }
         let options = this.state.categories.map(category =>
             <option key={category._id}>{category.name}</option>
-        );
+        )
         let postRows = this.state.pagePosts.map(post =>
             <tr className="btn-custom" key={post._id} onClick={() => {
                 this.props.history.push('/posts/details/' + post._id)
@@ -143,7 +144,7 @@ class AllPostsPage extends Component {
                 {postRows}
                 </tbody>
             </table>
-        );
+        )
 
         if (this.state.pagePosts.length === 0)
             table = <div>Empty</div>
@@ -152,7 +153,8 @@ class AllPostsPage extends Component {
             <div>
                 <div className="form-group">
                     <label>Select category:</label>
-                    <select value={this.state.category} className="form-control" id="sel1" name="category" onChange={this.onChangeHandler}>
+                    <select value={this.state.category} className="form-control" id="sel1" name="category"
+                            onChange={this.onChangeHandler}>
                         <option key="empty">All</option>
                         {options}
                     </select>
@@ -163,7 +165,7 @@ class AllPostsPage extends Component {
                     total={this.state.total}
                     current={this.state.current}
                     visiblePages={this.state.visiblePage}
-                    titles={{ first: '<|', last: '>|' }}
+                    titles={{first: '<|', last: '>|'}}
                     onPageChanged={this.handlePageChanged}
                 />
             </div>

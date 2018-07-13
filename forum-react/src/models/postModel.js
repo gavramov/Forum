@@ -1,32 +1,30 @@
-import Requester from './requestModel';
-import Kinvey from '../services/kinveyService';
-import AuthenticationService from '../services/authService';
-import observer from './observer'
+import Requester from './requestModel'
+import Kinvey from '../services/kinveyService'
+import AuthenticationService from '../services/authService'
 import Views from './viewsModel'
+import toastr from 'toastr'
 
-let requester = new Requester();
-let kinvey = new Kinvey();
+let requester = new Requester()
+let kinvey = new Kinvey()
 let auth =
-    new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
+    new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret())
 let views = new Views()
 
-// TODO: all promises must have catch that displays errors
 export default class Post {
-
     createPost(title, body, author, category, callback) {
         let postData = {
             title,
             body,
             author,
             category,
-        };
+        }
         requester.post(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders(), postData)
             .then(createPostSuccess)
-            .catch((err)=>callback(false))
+            .catch((err) => callback(false))
 
         function createPostSuccess(postInfo) {
-            views.initializeViews(postInfo._id, 0);
-            observer.showSuccess('Successful post created.');
+            views.initializeViews(postInfo._id, 0)
+            toastr.success('Post successfully created')
             callback(true)
         }
     }
@@ -34,10 +32,10 @@ export default class Post {
     deletePost(postId, callback) {
         requester.delete(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders())
             .then(() => {
-                views.deleteViews(postId);
-                observer.showSuccess('Post deleted.');
+                views.deleteViews(postId)
+                toastr.success('Post deleted!')
                 callback(true, postId)
-            });
+            })
     }
 
 
@@ -47,25 +45,25 @@ export default class Post {
             body: body,
             author: author,
             category: category
-        };
+        }
         requester.put(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders(), postData)
-            .then(callback(true));
+            .then(callback(true))
     }
 
 
     getPostById(id, callback) {
         if (callback === undefined)
-            return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders());
+            return requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders())
 
         requester.get(kinvey.getCollectionModuleUrl('posts') + '/' + id, auth.getHeaders())
-            .then(post => callback(post));
+            .then(post => callback(post))
     }
 
     getAllPosts(callback) {
         if (callback === undefined)
-            return requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders());
+            return requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders())
         requester.get(kinvey.getCollectionModuleUrl('posts'), auth.getHeaders())
-            .then(posts => callback(posts));
+            .then(posts => callback(posts))
     }
 
     /**
@@ -93,29 +91,28 @@ export default class Post {
      */
 
     query(filter, modifier, callback) {
-        let queryString = `?query=${filter}`;
+        let queryString = `?query=${filter}`
         if (modifier !== null)
-            queryString += `&${modifier}`;
-        let url = kinvey.getCollectionModuleUrl('posts') + queryString;
+            queryString += `&${modifier}`
+        let url = kinvey.getCollectionModuleUrl('posts') + queryString
 
         if (callback === undefined)
-            return requester.get(url, auth.getHeaders());
+            return requester.get(url, auth.getHeaders())
 
         requester.get(url, auth.getHeaders())
-            .then((response) =>
-            {
-                callback(response);
-            });
+            .then((response) => {
+                callback(response)
+            })
     }
 
     getPostsByUserId(callback) {
         let queryUrl =
-            kinvey.getCollectionModuleUrl('posts') + `?query={"author":"${localStorage.getItem('username')}"}`;
+            kinvey.getCollectionModuleUrl('posts') + `?query={"author":"${localStorage.getItem('username')}"}`
         if (callback === undefined)
-            return requester.get(queryUrl, auth.getHeaders());
+            return requester.get(queryUrl, auth.getHeaders())
 
         requester.get(queryUrl, auth.getHeaders())
-            .then(posts => callback(posts));
+            .then(posts => callback(posts))
 
     }
 }

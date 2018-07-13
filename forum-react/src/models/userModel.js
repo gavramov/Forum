@@ -1,13 +1,14 @@
-import Requester from './requestModel';
-import Kinvey from '../services/kinveyService';
-import AuthenticationService from '../services/authService';
+import Requester from './requestModel'
+import Kinvey from '../services/kinveyService'
+import AuthenticationService from '../services/authService'
 import observer from './observer'
 import Avatar from './avatarModel'
+import toastr from 'toastr'
 
-let requester = new Requester();
-let kinvey = new Kinvey();
+let requester = new Requester()
+let kinvey = new Kinvey()
 let auth =
-    new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
+    new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret())
 let avatar = new Avatar()
 
 export default class User {
@@ -15,13 +16,13 @@ export default class User {
         let userData = {
             username: username,
             password: password
-        };
+        }
         requester.post(kinvey.getUserModuleUrl() + '/login', auth.getHeaders(), userData)
             .then((response) => {
-                this.saveSession(response);
-                observer.onSessionUpdate();
-                observer.showSuccess('Login successful.');
-                callback(true);
+                this.saveSession(response)
+                observer.onSessionUpdate()
+                toastr.success('Login successful.')
+                callback(true)
             })
             .catch((err)=> callback(false))
     }
@@ -39,36 +40,36 @@ export default class User {
         function reg() {
             requester.post(kinvey.getUserModuleUrl(), auth.getHeaders(), userData)
                 .then((response) => {
-                    that.saveSession(response);
-                    observer.onSessionUpdate();
-                    observer.showSuccess('Successful registration.');
-                    callback(true);
+                    that.saveSession(response)
+                    observer.onSessionUpdate()
+                    toastr.success('Registration successful')
+                    callback(true)
                 })
                 .catch((err) => callback(false))
         }
     }
     changePassword (username, currentPass, password, callback) {
-        let url = kinvey.getUserModuleUrl() + `/${localStorage.getItem('userId')}`;
+        let url = kinvey.getUserModuleUrl() + `/${localStorage.getItem('userId')}`
         let userData = {
             username,
             password
-        };
+        }
         requester.put(url, auth.changePassHeaders(username, currentPass), userData)
             .then(respose => {
-                localStorage.clear();
-                this.saveSession(respose);
-                observer.showSuccess('Password changed successfully.');
+                localStorage.clear()
+                this.saveSession(respose)
+                toastr.success('Password successfully changed')
                 callback(true)})
             .catch(() => callback(false))
     }
     logout(callback) {
         requester.post(kinvey.getUserModuleUrl() + '/_logout', auth.getHeaders())
             .then(response => {
-                localStorage.clear();
-                observer.onSessionUpdate();
-                observer.showSuccess('Logout successful.');
+                localStorage.clear()
+                observer.onSessionUpdate()
+                toastr.success('Logout successful')
                 callback(true)
-            });
+            })
     }
 
     checkAdmin(callback){
@@ -90,28 +91,28 @@ export default class User {
     }
 
     getUserById(callback) {
-        let url = kinvey.getUserModuleUrl() + `/${localStorage.getItem('userId')}`;
+        let url = kinvey.getUserModuleUrl() + `/${localStorage.getItem('userId')}`
         if (callback === undefined)
-            return requester.get(url, auth.getHeaders());
+            return requester.get(url, auth.getHeaders())
 
         requester.get(url, auth.getHeaders())
-            .then(user => callback(user));
+            .then(user => callback(user))
     }
 
     loginDefaultUser(){
         let userData = {
             username: 'guest',
             password: 'guest'
-        };
+        }
         requester.post(kinvey.getUserModuleUrl() + '/login', auth.getHeaders(), userData)
             .then((response) => {
-                this.saveSession(response);
-                observer.onSessionUpdate();
+                this.saveSession(response)
+                observer.onSessionUpdate()
             })
             .catch((err)=> console.log(err))
     }
 
-    bannUser(user, callback) {
+    banUser(user, callback) {
         let data = {
             user:user.username
         }
@@ -121,7 +122,7 @@ export default class User {
             })
     }
 
-    unBannUser(user, callback) {
+    unBanUser(user, callback) {
         requester.get(kinvey.getCollectionModuleUrl('bannedUsers')+`?query={"user":"${user.username}"}`, auth.getHeaders())
             .then((res) => {
                 requester.delete(kinvey.getCollectionModuleUrl('bannedUsers')+'/'+res[0]._id, auth.getHeaders())
@@ -135,14 +136,13 @@ export default class User {
     //
 
     saveSession(userInfo) {
-        localStorage.setItem('Admin', userInfo.Admin);
-        let userAuth = userInfo._kmd.authtoken;
-        localStorage.setItem('authToken', userAuth);
-        let userId = userInfo._id;
-        localStorage.setItem('userId', userId);
-        let username = userInfo.username;
-        localStorage.setItem('username', username);
-        localStorage.setItem('teamId', userInfo.teamId);
+        localStorage.setItem('Admin', userInfo.Admin)
+        let userAuth = userInfo._kmd.authtoken
+        localStorage.setItem('authToken', userAuth)
+        let userId = userInfo._id
+        localStorage.setItem('userId', userId)
+        let username = userInfo.username
+        localStorage.setItem('username', username)
         avatar.setAvatarInSession()
 
         observer.onSessionUpdate()

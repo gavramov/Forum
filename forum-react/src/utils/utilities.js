@@ -25,7 +25,7 @@ export default class Utilities {
 
         result = array[0]
 
-        for (let i = 1; i < array.length; i++) {
+        for (let i = 1 i < array.length i++) {
             if (result.length + 4 + array[i].length > size) {
                 return result + '...'
             }
@@ -40,9 +40,9 @@ export default class Utilities {
      */
 
     ConvertTime(t){
-        let time = new Date((Date.parse(t)));
+        let time = new Date((Date.parse(t)))
 
         return `${time.getDay()+4}/${time.getMonth()+1}/${time.getFullYear()} ` +
-            `${time.getHours()}:${('0' + time.getMinutes()).slice(-2)}`;
+            `${time.getHours()}:${('0' + time.getMinutes()).slice(-2)}`
     }
 }

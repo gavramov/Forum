@@ -4,10 +4,11 @@ import User from '../../models/userModel'
 // import Modal from 'react-bootstrap/lib/Modal'
 // import Button from 'react-bootstrap/lib/Button'
 
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap'
 import $ from 'jquery'
-import {withRouter} from 'react-router-dom';
-let user = new User();
+import {withRouter} from 'react-router-dom'
+
+let user = new User()
 
 class LoginPage extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class LoginPage extends Component {
             username: '',
             password: '',
             submitDisabled: false,
-            showModal: true }
+            showModal: true
+        }
         this.bindEventHandlers()
     }
 
@@ -25,7 +27,7 @@ class LoginPage extends Component {
     }
 
     close() {
-        this.setState({ showModal: false });
+        this.setState({showModal: false})
         if (this.state.username === '')
             this.props.history.push('/')
     }
@@ -41,10 +43,10 @@ class LoginPage extends Component {
     onChangeHandler(event) {
         switch (event.target.name) {
             case 'username':
-                this.setState({ username: event.target.value })
+                this.setState({username: event.target.value})
                 break
             case 'password':
-                this.setState({ password: event.target.value })
+                this.setState({password: event.target.value})
                 break
             default:
                 break
@@ -53,7 +55,7 @@ class LoginPage extends Component {
 
     onSubmitHandler(event) {
         event.preventDefault()
-        this.setState({ submitDisabled: true })
+        this.setState({submitDisabled: true})
         user.login(this.state.username, this.state.password, this.onSubmitResponse)
     }
 
@@ -61,7 +63,7 @@ class LoginPage extends Component {
         if (response === true) {
             // Navigate away from login page
             this.close()
-            if(localStorage.getItem('Admin') === 'true'){
+            if (localStorage.getItem('Admin') === 'true') {
                 this.props.history.push('/admin')
             } else {
                 this.props.history.push('/posts')
@@ -70,7 +72,7 @@ class LoginPage extends Component {
             // Something went wrong, let the user try again
             console.clear()
             $('#error').show()
-            this.setState({ submitDisabled: false })
+            this.setState({submitDisabled: false})
         }
     }
 
@@ -94,4 +96,5 @@ class LoginPage extends Component {
         )
     }
 }
-export default withRouter(LoginPage);
+
+export default withRouter(LoginPage)

@@ -1,20 +1,21 @@
 
-import Requester from './requestModel';
-import Kinvey from '../services/kinveyService';
-import AuthenticationService from '../services/authService';
+import Requester from './requestModel'
+import Kinvey from '../services/kinveyService'
+import AuthenticationService from '../services/authService'
 
-let requester = new Requester();
-let kinvey = new Kinvey();
+let requester = new Requester()
+let kinvey = new Kinvey()
 let auth =
-    new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret());
+    new AuthenticationService(kinvey.getKinveyAppKey(), kinvey.getKinveySecret())
 
 export default class Category {
 
     getAllCategories(callback) {
+        debugger
         if(callback === undefined)
-            return requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders());
+            return requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())
         requester.get(kinvey.getCollectionModuleUrl('categories'), auth.getHeaders())
-            .then(categories => callback(categories));
+            .then(categories => callback(categories))
     }
 
     createCategory(name,callback) {
@@ -23,7 +24,7 @@ export default class Category {
 
         function publish(categories) {
             let found = false
-            for (let i = 0; i < categories.length; i++) {
+            for (let i = 0 i < categories.length i++) {
                 if(categories[i].name ===  name){
                     found = true
                     callback('duplicate')

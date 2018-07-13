@@ -4,7 +4,8 @@ export default class LoginForm extends Component {
     render() {
         return (
             <div className="card card-container">
-                <img id="profile-img" alt="Profile" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <img id="profile-img" alt="Profile" className="profile-img-card"
+                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
                 <form className="form-signin" onSubmit={this.props.onSubmitHandler}>
                     <div className="form-group">
                         <input
@@ -30,7 +31,7 @@ export default class LoginForm extends Component {
                             required
                         />
                     </div>
-                    <div id="error" style={{color:'red'}}>Invalid username or password!</div>
+                    <div id="error" style={{color: 'red'}}>Invalid username or password!</div>
                     <div className="form-group">
                         <input className="btn btn-lg btn-primary btn-block btn-signin"
                                type="submit" value="Login"

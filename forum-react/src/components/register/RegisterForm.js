@@ -5,7 +5,8 @@ export default class RegisterForm extends Component {
         console.log()
         return (
             <div className="card card-container">
-                <img id="profile-img" alt="Profile" className="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <img id="profile-img" alt="Profile" className="profile-img-card"
+                     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
                 <form className="form-signin" onSubmit={this.props.onSubmitHandler}>
                     <div className="form-group">
                         <input
@@ -43,7 +44,7 @@ export default class RegisterForm extends Component {
                             required
                         />
                     </div>
-                    <div id="error" style={{color:'red'}}></div>
+                    <div id="error" style={{color: 'red'}}></div>
                     <div className="form-group">
                         <input className="btn btn-lg btn-primary btn-block btn-signin"
                                type="submit" value="Register"
