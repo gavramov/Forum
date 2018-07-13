@@ -74,8 +74,7 @@ class RegisterPage extends Component {
         try {
             user.register(this.state.username, this.state.password, this.onSubmitResponse)
         } catch (err) {
-            console.log(err)
-            console.log('cached')
+
         }
     }
 
@@ -86,9 +85,8 @@ class RegisterPage extends Component {
             this.close()
             this.props.history.push('/posts')
         } else {
-            //console.clear()
-            // Something went wrong, let the user try again
             $('#error').show().text("User with that name already exists!")
+            user.loginDefaultUser()
             this.setState({submitDisabled: false})
         }
     }

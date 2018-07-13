@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import observer from './models/observer'
 import userModel from './models/userModel'
 import './App.css'
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
 import Register from './components/register/RegisterPage'
 import Login from './components/login/LoginPage'
 import CreatePostPage from './components/posts/create-post/CreatePostPage'
 import EditPostPage from "./components/posts/edit-post/EditPostPage"
 import AllPostsPage from './components/posts/AllPostsPage'
+import DetailsPage from './components/posts/DetailsPage'
 import CreateCommentPage from './components/comments/create-comment/CreateCommentPage'
 import EditCommentPage from './components/comments/edit-comment/EditCommentPage'
 import NotFoundPage from './components/notFound/NotFoundPage'
@@ -34,7 +35,6 @@ class App extends Component {
     }
 
     onSessionUpdate() {
-        console.log(localStorage)
         let name = localStorage.getItem("username")
         if (name) {
             this.setState({loggedIn: true, username: localStorage.getItem("username")})
@@ -64,6 +64,7 @@ class App extends Component {
                         <Route exact path="/account/register" component={Register}/>
                         <Route exact path="/account/login" component={Login}/>
                         <Route exact path="/posts/create" component={CreatePostPage}/>
+                        <Route exact path="/posts/details/:postId" component={DetailsPage}/>
                         <Route exact path="/posts/edit/:postId" component={EditPostPage}/>
                         <Route exact path="/posts" component={AllPostsPage}/>
                         <Route path="/comments/:postId" component={CreateCommentPage}/>

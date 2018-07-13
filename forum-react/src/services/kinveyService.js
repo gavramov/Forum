@@ -15,8 +15,4 @@ export default class KinveyService {
     getCollectionModuleUrl(collection) {
         return `https://baas.kinvey.com/appdata/${this.getKinveyAppKey()}/${collection}`
     }
-
-    getUploadAvatarUrl() {
-        return `https://baas.kinvey.com/blob/${this.getKinveyAppKey()}`
-    }
 }

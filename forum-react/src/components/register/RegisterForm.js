@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 
 export default class RegisterForm extends Component {
     render() {
-        console.log()
         return (
             <div className="card card-container">
                 <img id="profile-img" alt="Profile" className="profile-img-card"

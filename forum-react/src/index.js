@@ -5,7 +5,7 @@ import './index.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/toastr/build/toastr.min.css'
 import registerServiceWorker from './registerServiceWorker'
-import {BrowserRouter, Route, Router, Switch} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 
 ReactDOM.render(
     <BrowserRouter>
