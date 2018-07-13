@@ -1,6 +1,6 @@
 import Requester from './requestModel'
 import Kinvey from '../services/kinveyService'
-import AuthenticationService from '../services/authenticationService'
+import AuthenticationService from '../services/authService'
 import toastr from 'toastr'
 
 let requester = new Requester()

@@ -12,13 +12,16 @@ import AllPostsPage from './components/posts/AllPostsPage'
 import CreateCommentPage from './components/comments/create-comment/CreateCommentPage'
 import EditCommentPage from './components/comments/edit-comment/EditCommentPage'
 import NotFoundPage from './components/notFound/NotFoundPage'
+import HomePage from './components/home/HomePage'
+import NavigationBar from './components/common/Navbar'
+import Footer from './components/common/Footer'
 
 let session = new userModel()
 
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = { loggedIn: false, username: '' }
+        this.state = {loggedIn: false, username: ''}
         observer.onSessionUpdate = this.onSessionUpdate.bind(this)
         observer.componentDidMount = this.componentDidMount.bind(this)
         this.logout = this.logout.bind(this)
@@ -33,9 +36,9 @@ class App extends Component {
         console.log(localStorage)
         let name = localStorage.getItem("username")
         if (name) {
-            this.setState({ loggedIn: true, username: localStorage.getItem("username") })
+            this.setState({loggedIn: true, username: localStorage.getItem("username")})
         } else {
-            this.setState({ loggedIn: false, username: '' })
+            this.setState({loggedIn: false, username: ''})
         }
     }
 
@@ -47,20 +50,27 @@ class App extends Component {
 
     render() {
         return (
-            <div className="wrapper">
-                <div className="container">
+            <div className="wrapper clearfix">
+                <NavigationBar loggedIn={this.state.loggedIn}
+                               user={this.state.username}
+                               href="/profile"
+                               logout={this.logout}
+                />
+                <div className="container mt-5">
                     <Switch>
-                        <Route exact path="/account/register" component={Register} />
+                        <Route exact={true} path="/" component={HomePage}/>
+                        <Route exact path="/account/register" component={Register}/>
                         <Route exact path="/account/login" component={Login}/>
-                        <Route path="/posts/create" component={CreatePostPage}/>
+                        <Route exact path="/posts/create" component={CreatePostPage}/>
+                        <Route exact path="/posts/edit/:postId" component={EditPostPage}/>
                         <Route exact path="/posts" component={AllPostsPage}/>
-                        <Route exact path="/posts/edit/:postId" component={EditPostPage} />
                         <Route path="/comments/:postId" component={CreateCommentPage}/>
                         <Route path="/comments/edit/:commentId" component={EditCommentPage}/>
-                        <Route component={NotFoundPage} />
+                        <Route component={NotFoundPage}/>
                     </Switch>
                 </div>
                 <hr/>
+                <Footer/>
             </div>
         )
     }
