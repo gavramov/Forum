@@ -15,6 +15,7 @@ import NotFoundPage from './components/notFound/NotFoundPage'
 import HomePage from './components/home/HomePage'
 import NavigationBar from './components/common/Navbar'
 import Footer from './components/common/Footer'
+import AboutPage from './components/about/AboutPage'
 
 let session = new userModel()
 
@@ -59,6 +60,7 @@ class App extends Component {
                 <div className="container mt-5">
                     <Switch>
                         <Route exact={true} path="/" component={HomePage}/>
+                        <Route exact path="/about" component={AboutPage}/>
                         <Route exact path="/account/register" component={Register}/>
                         <Route exact path="/account/login" component={Login}/>
                         <Route exact path="/posts/create" component={CreatePostPage}/>
