@@ -7,6 +7,7 @@ import {withRouter} from 'react-router-dom'
 import Register from './components/register/RegisterPage'
 import Login from './components/login/LoginPage'
 import CreatePostPage from './components/posts/create-post/CreatePostPage'
+import EditPostPage from "./components/Posts/edit-post/EditPostPage";
 import AllPostsPage from './components/posts/AllPostsPage'
 import NotFoundPage from './components/NotFound/NotFoundPage'
 
@@ -51,6 +52,7 @@ class App extends Component {
                         <Route exact path="/account/login" component={Login}/>
                         <Route path="/posts/create" component={CreatePostPage}/>
                         <Route exact path="/posts" component={AllPostsPage}/>
+                        <Route exact path="/posts/edit/:postId" component={EditPostPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
