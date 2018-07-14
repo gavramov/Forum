@@ -57,4 +57,6 @@ Banned users cannot create, edit, delete neither their posts nor their comments.
 	Banned users cannot even log in (now can login, but cannot post and add comments)
 	
 # Examples
-![Home Page](./forum-react/public/img/home.png?raw=true "Home Page")
+<div align="center"
+    <img src="/forum-react/public/img/home" width="400px"</img>
+</div>
