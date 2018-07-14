@@ -14,7 +14,7 @@ export default class EditPage extends Component {
         this.bindEventHandlers()
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // Populate form
         if(localStorage.getItem('username') === 'guest'){
             toastr.error('You are currently not logged in!')

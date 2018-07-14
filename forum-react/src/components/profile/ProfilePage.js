@@ -72,7 +72,6 @@ class ProfilePage extends Component {
         return (
             <div>
                 <h1>{this.state.username}</h1>
-                <div><img id="profile-img" alt="Profile" className="profile-img-card" src={this.state.img} /></div>
                 <h4>Your Posts</h4>
                 <table className="table table-hover">
                     <thead>
