@@ -8,11 +8,6 @@ let utils = new Utilities()
 let postModule = new Post()
 let viewModule = new View()
 
-/*
- Gets all posts and views. Sorts the posts by
- posted time and displays 12 posts on 3 columns
- */
-
 export default class LatestPostsWidget extends Component {
     constructor(props) {
         super(props)

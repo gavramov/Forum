@@ -67,6 +67,16 @@ export default class User {
             })
     }
 
+    checkUser() {
+        return requester.get(kinvey.getUserModuleUrl() + `/${localStorage.getItem('userId')}`, auth.getHeaders())
+            .then((response) => {
+                return response.username
+            })
+            .catch((err) => {
+                return err
+            })
+    }
+
     getUsers(callback, id) {
         requester.get(kinvey.getUserModuleUrl(), auth.getHeaders())
             .then((response) => {

@@ -1,13 +1,5 @@
 export default class Utilities {
 
-    /**
-     * Returns the input string cut to desired size
-     *
-     * @param {string} text
-     * @param {number} size - positive integer
-     *
-     */
-
     showLess(text, size) {
         if (text.length <= size) {
             return text

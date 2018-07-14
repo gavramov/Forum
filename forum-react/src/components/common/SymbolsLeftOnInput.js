@@ -1,15 +1,4 @@
 import React, {Component} from 'react'
-/*
- * Displays the maximum symbols
- * that the user can input into given form.
- * Give this a properties of maxSymbols={integer}
- * and an input property containing the form input
- * You can also set a class to the div containing
- * the counter eg. - "col-md-5"
- * This counter can also hide if it is given
- * a boolean property named fieldOnFocus which
- * is managed by the onFocus on the input field
- */
 
 export default class SymbolsLeft extends Component {
     constructor(props) {

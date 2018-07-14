@@ -45,16 +45,22 @@ class CreateCommentPage extends Component {
             return
         }
         this.setState({submitDisabled: true})
-        comment.createComment(this.state.body, this.props.match.params.postId, localStorage.getItem('username'), this.onSubmitResponse)
+        comment.createComment(this.state.body, this.props.match.params.postId, localStorage.getItem('username'))
+            .then(this.onSubmitResponse)
+            .catch(() => {
+                toastr.error('Unable to add comment!')
+                this.props.history.push('/posts/details/' + this.props.match.params.postId)
+            })
     }
 
     onSubmitResponse(response) {
         if (response === true) {
             // Navigate away from createPost page
+            toastr.success('Comment successfully added!')
             this.props.history.push('/posts/details/' + this.props.match.params.postId)
         } else {
-            // Something went wrong, let the user try again
-            this.setState({submitDisabled: true})
+            toastr.error('Unable to add comment!')
+            this.props.history.push('/posts/details/' + this.props.match.params.postId)
         }
     }
 

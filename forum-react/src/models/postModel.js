@@ -39,15 +39,20 @@ export default class Post {
     }
 
 
-    editPost(postId, title, body, author, category, callback) {
+    editPost(postId, title, body, author, category) {
         let postData = {
             title: title,
             body: body,
             author: author,
             category: category
         }
-        requester.put(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders(), postData)
-            .then(callback(true))
+        return requester.put(kinvey.getCollectionModuleUrl('posts') + '/' + postId, auth.getHeaders(), postData)
+            .then(response => {
+              return true
+            })
+            .catch(err => {
+                return false
+            })
     }
 
 

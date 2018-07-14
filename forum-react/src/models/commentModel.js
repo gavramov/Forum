@@ -12,13 +12,13 @@ export default class Comment {
 
     createComment(text, postId, author, callback) {
         let commentData = {text, postId, author}
-        requester.post(kinvey.getCollectionModuleUrl('comments'), auth.getHeaders(), commentData)
-            .then(createCommentSuccess)
-
-        function createCommentSuccess(commentInfo) {
-            toastr.success('Comment added successfully')
-            callback(true)
-        }
+        return requester.post(kinvey.getCollectionModuleUrl('comments'), auth.getHeaders(), commentData)
+            .then(resp => {
+                return true;
+            })
+            .catch(err=> {
+                return false
+            })
     }
 
     deleteComment(commentId, callback) {
@@ -53,6 +53,7 @@ export default class Comment {
         }
         requester.put(kinvey.getCollectionModuleUrl('comments') + '/' + commentId, auth.getHeaders(), commentData)
             .then(callback(true))
+            .catch(callback(false))
     }
 
     deleteCommentsByPostId(postId, callback) {

@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import EditCommentForm from './EditCommentForm'
 import Comment from '../../../models/commentModel'
+import User from '../../../models/userModel'
 import toastr from 'toastr'
 import {withRouter} from 'react-router-dom'
 
 let comment = new Comment()
+let user = new User()
 
 class EditCommentPage extends Component {
     constructor(props) {
@@ -14,8 +16,16 @@ class EditCommentPage extends Component {
     }
 
     componentDidMount() {
-        // Populate form
-        comment.loadCommentDetails(this.props.match.params.commentId, this.onLoadSuccess)
+        user.checkUser().then(username => {
+            if (username === 'guest') {
+                toastr.error('Please login first!')
+                this.props.history.push('/')
+                return
+            }
+            else {
+                comment.loadCommentDetails(this.props.match.params.commentId, this.onLoadSuccess)
+            }
+        })
     }
 
     bindEventHandlers() {
@@ -64,10 +74,8 @@ class EditCommentPage extends Component {
         if (response === true) {
             this.props.history.push('/posts/details/' + this.state.postId)
             toastr.info('Comment successfully edited!')
-        } else {
-            // Something went wrong, let the user try again
-            this.setState({submitDisabled: true})
         }
+        this.setState({submitDisabled: false})
     }
 
     render() {

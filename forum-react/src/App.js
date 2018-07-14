@@ -71,8 +71,8 @@ class App extends Component {
                         <Route exact path="/posts/details/:postId" component={DetailsPage}/>
                         <Route exact path="/posts/edit/:postId" component={EditPostPage}/>
                         <Route exact path="/posts" component={AllPostsPage}/>
-                        <Route path="/comments/:postId" component={CreateCommentPage}/>
                         <Route path="/comments/edit/:commentId" component={EditCommentPage}/>
+                        <Route path="/comments/:postId" component={CreateCommentPage}/>
                         <Route exact path="/admin" component={AdminPage}/>
                         <Route component={NotFoundPage}/>
                     </Switch>

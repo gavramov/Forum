@@ -4,14 +4,6 @@ import {Link} from 'react-router-dom'
 
 let category = new Category()
 
-/*
-	Takes the post categories orders them by name,
-	cuts them to 50 characters if longer,
-	and splits them in halves the left column strives
-	to have the bigger number of categories,
-	whilst both columns cannot have more than 5 entries
-*/
-
 export default class CategoriesWidget extends Component {
     constructor(props) {
         super(props)
