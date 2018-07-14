@@ -82,7 +82,7 @@ class RegisterPage extends Component {
         if (response === true) {
             // Navigate away from register page
             $('#error').hide()
-            this.close()
+            this.setState({showModal: false})
             this.props.history.push('/posts')
         } else {
             $('#error').show().text("User with that name already exists!")
