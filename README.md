@@ -45,9 +45,9 @@ Administrator:
     can delete categories
 ```
 
-Posts have title, author, description, date created, views and comments.
+Post has a title, an author, a description, date created, views and comments.
 
-Comments have description, date created, author
+Comment has an author, a description and date created.
 
 Banned users cannot create, edit, delete neither their posts nor their comments.
 	
@@ -55,3 +55,6 @@ Banned users cannot create, edit, delete neither their posts nor their comments.
 	Replace Kinvey with express.js server + mongodb
 	Users can change password
 	Banned users cannot even log in (now can login, but cannot post and add comments)
+	
+# Examples
+![Home Page](./forum-react/public/img/home.png?raw=true "Home Page")
