@@ -2,8 +2,10 @@
   "name": "forum-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://gavramov.github.io/forum-react",
   "dependencies": {
     "bootstrap": "4.1.1",
+    "gh-pages": "1.2.0",
     "jquery": "3.3.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -17,6 +19,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
